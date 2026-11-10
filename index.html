@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Al-Qur’an — Mushaf Reader</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📖</text></svg>" />
+<link rel="stylesheet" href="fonts/fonts.css" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header id="topbar">
+  <div id="brand">
+    <span class="brand-mark">۞</span>
+    <span class="brand-title">Al-Qur’an</span>
+  </div>
+
+  <div id="search-wrap">
+    <input id="search" type="text" autocomplete="off" spellcheck="false"
+      placeholder='Search — surah name or number · "page 60" · "2:255" · or any words' />
+    <div id="search-results" hidden></div>
+  </div>
+
+  <div id="top-actions">
+    <span id="page-pill" title="Current page">Page 1 / 604</span>
+    <button id="btn-settings" class="btn" type="button">⚙ Customize</button>
+  </div>
+</header>
+
+<main id="viewport">
+  <div id="pages" dir="rtl"></div>
+  <div id="sentinel"></div>
+</main>
+
+<nav id="page-nav">
+  <button id="btn-prev" class="btn" type="button" title="Previous page">‹ Prev</button>
+  <div id="nav-info">
+    <input id="page-input" type="number" min="1" max="604" value="1" aria-label="Go to page" />
+    <span class="nav-total">/ 604</span>
+  </div>
+  <button id="btn-next" class="btn" type="button" title="Next page">Next ›</button>
+</nav>
+
+<aside id="settings-panel" aria-label="Customization panel"></aside>
+<div id="scrim"></div>
+<div id="toast" hidden></div>
+
+<script src="data/quran-data.js"></script>
+<script src="render.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
