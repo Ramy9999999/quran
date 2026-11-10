@@ -25,7 +25,7 @@ body {
   margin: 0;
   background: var(--c-back);
   color: var(--c-text);
-  font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: "Segoe UI", Tahoma, system-ui, sans-serif;
 }
 
 ::selection { background: var(--c-accent); color: var(--c-paper); }
@@ -48,7 +48,7 @@ button { font-family: inherit; }
 
 #brand { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
 .brand-mark { color: var(--c-accent); font-size: 22px; line-height: 1; }
-.brand-title { font-weight: 700; font-size: 16px; letter-spacing: .3px; }
+.brand-title { font-weight: 700; font-size: 17px; font-family: 'Reem Kufi', 'Segoe UI', sans-serif; }
 
 #search-wrap { flex: 1; max-width: 560px; position: relative; }
 
@@ -170,7 +170,7 @@ body.marker-none .vm { display: none; }
   font-weight: 700;
   -webkit-text-stroke: 0;
 }
-.sh-meta { font-size: .42em; opacity: .8; margin-top: .3em; letter-spacing: .5px; }
+.sh-meta { font-size: .42em; opacity: .8; margin-top: .3em; }
 .sh-rule {
   height: 1px;
   width: 58%;
@@ -187,7 +187,6 @@ body.marker-none .vm { display: none; }
   color: var(--c-accent);
   opacity: .9;
   margin-bottom: 1em;
-  letter-spacing: 1px;
 }
 body.cue-on .page-cue { display: block; }
 
@@ -236,12 +235,12 @@ body.cue-on .page-cue { display: block; }
 
 #settings-panel {
   position: fixed;
-  top: 0; right: 0; bottom: 0;
+  top: 0; left: 0; bottom: 0;
   width: min(380px, 94vw);
   background: var(--c-paper);
-  border-left: 2px solid var(--c-accent);
+  border-right: 2px solid var(--c-accent);
   z-index: 100;
-  transform: translateX(105%);
+  transform: translateX(-105%);
   transition: transform .28s ease;
   overflow-y: auto;
   padding: 18px 20px 34px;
@@ -249,7 +248,7 @@ body.cue-on .page-cue { display: block; }
 #settings-panel.open { transform: translateX(0); }
 
 .sp-head { display: flex; justify-content: space-between; align-items: center; }
-.sp-title { font-size: 17px; font-weight: 700; }
+.sp-title { font-size: 17px; font-weight: 700; font-family: 'Reem Kufi', 'Segoe UI', sans-serif; }
 .sp-close { border: none; background: none; font-size: 20px; cursor: pointer; color: var(--c-text); padding: 4px 8px; }
 
 .sp-section { margin-top: 20px; }
@@ -264,7 +263,7 @@ body.cue-on .page-cue { display: block; }
 }
 
 .ctl { display: flex; align-items: center; gap: 10px; margin: 13px 0; }
-.ctl label { flex: 0 0 122px; font-size: 13px; }
+.ctl label { flex: 0 0 138px; font-size: 13px; }
 .ctl input[type=range] { flex: 1; accent-color: var(--c-accent); }
 .ctl .val {
   flex: 0 0 56px;

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Al-Qur’an — Mushaf Reader</title>
+<title>القرآن الكريم — المصحف</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📖</text></svg>" />
 <link rel="stylesheet" href="fonts/fonts.css" />
 <link rel="stylesheet" href="styles.css" />
@@ -13,20 +13,20 @@
 <header id="topbar">
   <div id="brand">
     <span class="brand-mark">۞</span>
-    <span class="brand-title">Al-Qur’an</span>
+    <span class="brand-title">القرآن الكريم</span>
   </div>
 
   <div id="search-wrap">
     <input id="search" type="text" autocomplete="off" spellcheck="false"
-      placeholder='Search — surah name or number · "page 60" · "2:255" · or any words' />
+      placeholder='ابحث — اسم السورة أو رقمها · «صفحة 60» · «2:255» · أو أي كلمات' />
     <div id="search-results" hidden></div>
   </div>
 
   <div id="top-actions">
-    <span id="page-pill" title="Current page">Page 1 / 604</span>
-    <button id="btn-bm-go" class="btn bm-go" type="button" hidden title="Jump to your bookmark">▶ <span id="bm-go-label"></span></button>
-    <button id="btn-bm-set" class="btn" type="button" title="Bookmark this page — replaces the previous one (b)">🔖 Save spot</button>
-    <button id="btn-settings" class="btn" type="button">⚙ Customize</button>
+    <span id="page-pill" title="الصفحة الحالية">صفحة ١ من ٦٠٤</span>
+    <button id="btn-bm-go" class="btn bm-go" type="button" hidden title="الانتقال إلى علامة القراءة">▶ <span id="bm-go-label"></span></button>
+    <button id="btn-bm-set" class="btn" type="button" title="علّم هذه الصفحة — تحلّ محلّ العلامة السابقة (b)">🔖 احفظ مكاني</button>
+    <button id="btn-settings" class="btn" type="button">⚙ التخصيص</button>
   </div>
 </header>
 
@@ -36,15 +36,15 @@
 </main>
 
 <nav id="page-nav">
-  <button id="btn-prev" class="btn" type="button" title="Previous page">‹ Prev</button>
+  <button id="btn-prev" class="btn" type="button" title="الصفحة السابقة">› السابق</button>
   <div id="nav-info">
-    <input id="page-input" type="number" min="1" max="604" value="1" aria-label="Go to page" />
-    <span class="nav-total">/ 604</span>
+    <input id="page-input" type="number" min="1" max="604" value="1" aria-label="اذهب إلى صفحة" />
+    <span class="nav-total">من ٦٠٤</span>
   </div>
-  <button id="btn-next" class="btn" type="button" title="Next page">Next ›</button>
+  <button id="btn-next" class="btn" type="button" title="الصفحة التالية">التالي ‹</button>
 </nav>
 
-<aside id="settings-panel" aria-label="Customization panel"></aside>
+<aside id="settings-panel" aria-label="لوحة التخصيص"></aside>
 <div id="scrim"></div>
 <div id="toast" hidden></div>
 

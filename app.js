@@ -67,45 +67,45 @@
   /* ================= panel ================= */
 
   var FONTS = [
-    ['Amiri Quran — classic mushaf', "'Amiri Quran', 'Amiri', serif"],
+    ['Amiri Quran — مصحف تقليدي', "'Amiri Quran', 'Amiri', serif"],
     ['Amiri', "'Amiri', serif"],
     ['Scheherazade New', "'Scheherazade New', serif"],
     ['Lateef', "'Lateef', serif"],
-    ['Noto Naskh Arabic', "'Noto Naskh Arabic', serif"],
-    ['Aref Ruqaa — calligraphic', "'Aref Ruqaa', serif"],
+    ['Noto Naskh Arabic — نسخ', "'Noto Naskh Arabic', serif"],
+    ['Aref Ruqaa — رقعة', "'Aref Ruqaa', serif"],
     ['Katibeh', "'Katibeh', serif"],
-    ['Reem Kufi — modern', "'Reem Kufi', serif"],
-    ['Traditional Arabic (system)', "'Traditional Arabic', serif"],
-    ['Sakkal Majalla (system)', "'Sakkal Majalla', serif"],
-    ['Arabic Typesetting (system)', "'Arabic Typesetting', serif"],
-    ['Segoe UI (system)', "'Segoe UI', sans-serif"]
+    ['Reem Kufi — كوفي حديث', "'Reem Kufi', serif"],
+    ['Traditional Arabic — خط النظام', "'Traditional Arabic', serif"],
+    ['Sakkal Majalla — خط النظام', "'Sakkal Majalla', serif"],
+    ['Arabic Typesetting — خط النظام', "'Arabic Typesetting', serif"],
+    ['Segoe UI — خط النظام', "'Segoe UI', sans-serif"]
   ];
 
   var RANGES = [
-    ['r-size', 'Text size', 'size', 16, 96, 1, 'px'],
-    ['r-weight', 'Thickness (weight)', 'weight', 100, 900, 50, ''],
-    ['r-stroke', 'Stroke width', 'strokeW', 0, 6, 0.25, 'px'],
-    ['r-lh', 'Line height', 'lh', 1.2, 3, 0.05, '×'],
-    ['r-framew', 'Frame width', 'frameW', 0, 8, 1, 'px'],
-    ['r-pagew', 'Page width', 'pageW', 480, 1400, 10, 'px']
+    ['r-size', 'حجم النص', 'size', 16, 96, 1, 'px'],
+    ['r-weight', 'سماكة الخط', 'weight', 100, 900, 50, ''],
+    ['r-stroke', 'سمك الحدود', 'strokeW', 0, 6, 0.25, 'px'],
+    ['r-lh', 'تباعد الأسطر', 'lh', 1.2, 3, 0.05, '×'],
+    ['r-framew', 'سمك الإطار', 'frameW', 0, 8, 1, 'px'],
+    ['r-pagew', 'عرض الصفحة', 'pageW', 480, 1400, 10, 'px']
   ];
 
   var COLORS = [
-    ['c-text', 'Text color', 'text'],
-    ['c-stroke', 'Stroke color', 'strokeC'],
-    ['c-paper', 'Page (paper) color', 'paper'],
-    ['c-back', 'Background color', 'back'],
-    ['c-accent', 'Accent (markers, frame)', 'accent']
+    ['c-text', 'لون النص', 'text'],
+    ['c-stroke', 'لون الحدود', 'strokeC'],
+    ['c-paper', 'لون الورق (الصفحة)', 'paper'],
+    ['c-back', 'لون الخلفية', 'back'],
+    ['c-accent', 'اللون المميز', 'accent']
   ];
 
   var panel = document.getElementById('settings-panel');
 
   function buildPanel() {
-    var h = '<div class="sp-head"><span class="sp-title">Customize your Mushaf</span>' +
-      '<button class="sp-close" id="sp-close" title="Close">✕</button></div>';
+    var h = '<div class="sp-head"><span class="sp-title">خصّص مصحفك</span>' +
+      '<button class="sp-close" id="sp-close" title="إغلاق">✕</button></div>';
 
-    h += '<div class="sp-section"><h3>Typography</h3>';
-    h += '<div class="ctl"><label for="f-font">Font</label><select id="f-font">' +
+    h += '<div class="sp-section"><h3>الخط والتنسيق</h3>';
+    h += '<div class="ctl"><label for="f-font">الخط</label><select id="f-font">' +
       FONTS.map(function (f) { return '<option value="' + f[1].replace(/"/g, '&quot;') + '">' + f[0] + '</option>'; }).join('') +
       '</select></div>';
     RANGES.forEach(function (r) {
@@ -116,42 +116,42 @@
     });
     h += '</div>';
 
-    h += '<div class="sp-section"><h3>Colors</h3>';
+    h += '<div class="sp-section"><h3>الألوان</h3>';
     COLORS.forEach(function (c) {
       h += '<div class="ctl"><label for="' + c[0] + '">' + c[1] + '</label>' +
         '<input type="color" id="' + c[0] + '"><span class="val" id="' + c[0] + '-val"></span></div>';
     });
-    h += '<div class="ctl"><label>Swap text / paper</label><button class="btn" id="b-swap" type="button">⇄ Swap</button></div>';
+    h += '<div class="ctl"><label>تبديل النص والورق</label><button class="btn" id="b-swap" type="button">⇄ تبديل</button></div>';
     h += '</div>';
 
-    h += '<div class="sp-section"><h3>Layout & Reading</h3>';
-    h += '<div class="ctl"><label for="seg-align">Alignment</label><div class="seg" id="seg-align">' +
-      ['center', 'right', 'left', 'justify'].map(function (a) {
-        return '<button type="button" data-v="' + a + '">' + a + '</button>';
+    h += '<div class="sp-section"><h3>التخطيط والقراءة</h3>';
+    h += '<div class="ctl"><label for="seg-align">المحاذاة</label><div class="seg" id="seg-align">' +
+      [['center', 'وسط'], ['right', 'يمين'], ['left', 'يسار'], ['justify', 'ضبط']].map(function (a) {
+        return '<button type="button" data-v="' + a[0] + '">' + a[1] + '</button>';
       }).join('') + '</div></div>';
-    h += '<div class="ctl"><label for="seg-marker">Verse markers</label><div class="seg" id="seg-marker">' +
-      [['circle', 'circle'], ['bracket', 'brackets'], ['none', 'none']].map(function (m) {
+    h += '<div class="ctl"><label for="seg-marker">علامات الآيات</label><div class="seg" id="seg-marker">' +
+      [['circle', 'دائرة'], ['bracket', 'أقواس'], ['none', 'بدون']].map(function (m) {
         return '<button type="button" data-v="' + m[0] + '">' + m[1] + '</button>';
       }).join('') + '</div></div>';
     h += '<div class="ctl"><label for="r-framew">Frame width</label>' +
       '<input type="range" id="r-framew" min="0" max="8" step="1"><span class="val" id="r-framew-val"></span></div>';
     h += '<div class="ctl"><label for="r-pagew">Page width</label>' +
       '<input type="range" id="r-pagew" min="480" max="1400" step="10"><span class="val" id="r-pagew-val"></span></div>';
-    h += '<div class="ctl"><label for="k-frame">Page frame</label><input type="checkbox" id="k-frame"></div>';
-    h += '<div class="ctl"><label for="k-cont">Continuous scroll</label><input type="checkbox" id="k-cont"></div>';
-    h += '<div class="ctl"><label for="k-cue">Surah label at page start</label><input type="checkbox" id="k-cue"></div>';
-    h += '<div class="ctl"><label for="b-bm-toggle">Bookmark</label><button class="btn" id="b-bm-toggle" type="button"></button></div>';
+    h += '<div class="ctl"><label for="k-frame">إطار الصفحة</label><input type="checkbox" id="k-frame"></div>';
+    h += '<div class="ctl"><label for="k-cont">التمرير المتواصل</label><input type="checkbox" id="k-cont"></div>';
+    h += '<div class="ctl"><label for="k-cue">اسم السورة أول الصفحة</label><input type="checkbox" id="k-cue"></div>';
+    h += '<div class="ctl"><label for="b-bm-toggle">علامة القراءة</label><button class="btn" id="b-bm-toggle" type="button"></button></div>';
     h += '</div>';
 
     h += '<div class="sp-actions">' +
-      '<button class="btn" id="b-print-all" type="button">🖨 Print WHOLE Quran</button>' +
-      '<button class="btn" id="b-print" type="button">🖨 Print loaded pages</button>' +
-      '<button class="btn" id="b-share" type="button">🔗 Copy my look link</button>' +
-      '<button class="btn" id="b-reset" type="button">↺ Reset</button></div>' +
-      '<p class="sp-hint">Everything is saved automatically in this browser. The stroke draws an outline ' +
-      'around each letter — combine it with weight for bold outlines. Use the search bar to jump to any ' +
-      'surah, page, or verse. "Print WHOLE Quran" prints all 604 pages with these exact settings — ' +
-      'enable "Background graphics" in the print dialog so colors print.</p>';
+      '<button class="btn" id="b-print-all" type="button">🖨 طباعة المصحف كاملاً</button>' +
+      '<button class="btn" id="b-print" type="button">🖨 طباعة الظاهر</button>' +
+      '<button class="btn" id="b-share" type="button">🔗 نسخ رابط بمظهري</button>' +
+      '<button class="btn" id="b-reset" type="button">↺ إعادة الضبط</button></div>' +
+      '<p class="sp-hint">كل شيء يُحفظ تلقائياً في هذا المتصفح. «الحدود» ترسم خطاً حول كل حرف — ' +
+      'ادمجها مع السماكة لحدود أثخن. استخدم شريط البحث للانتقال إلى أي سورة أو صفحة أو آية. ' +
+      '«طباعة المصحف كاملاً» تطبع الصفحات الـ٦٠٤ بهذه الإعدادات بالضبط — فعّل خيار ' +
+      '"Background graphics" في نافذة الطباعة حتى تُطبع الألوان.</p>';
 
     panel.innerHTML = h;
     wirePanel();
@@ -192,7 +192,7 @@
     document.getElementById('k-cont').addEventListener('change', function () { S.continuous = this.checked; apply(); save(); });
     document.getElementById('k-cue').addEventListener('change', function () { S.cue = this.checked; apply(); save(); });
     document.getElementById('b-bm-toggle').addEventListener('click', function () {
-      if (S.bmPage) { S.bmPage = null; save(); refreshBmUI(); toast('Bookmark removed'); }
+      if (S.bmPage) { S.bmPage = null; save(); refreshBmUI(); toast('تم حذف علامة القراءة'); }
       else setBookmark();
     });
     document.getElementById('b-swap').addEventListener('click', function () {
@@ -206,7 +206,7 @@
     });
     document.getElementById('b-reset').addEventListener('click', function () {
       S = Object.assign({}, DEFAULTS, { lastPage: S.lastPage });
-      refreshPanel(); apply(); save(); toast('Customization reset');
+      refreshPanel(); apply(); save(); toast('تمت إعادة الضبط');
     });
     document.getElementById('b-share').addEventListener('click', shareLook);
     document.getElementById('sp-close').addEventListener('click', closePanel);
@@ -239,10 +239,11 @@
   function setBookmark() {
     var old = S.bmPage;
     var now = R.current;
-    if (old === now) { toast('Bookmark is already at page ' + now); return; }
+    if (old === now) { toast('علامتك محفوظة بالفعل عند الصفحة ' + R.arNum(now)); return; }
     S.bmPage = now;
     save(); refreshBmUI();
-    toast(old ? 'Bookmark moved: page ' + old + ' \u2192 page ' + now : 'Bookmark saved at page ' + now);
+    toast(old ? 'نُقلت علامة القراءة: من الصفحة ' + R.arNum(old) + ' إلى الصفحة ' + R.arNum(now)
+              : 'حُفظت علامة القراءة عند الصفحة ' + R.arNum(now));
   }
 
   function refreshBmUI() {
@@ -251,11 +252,11 @@
     var tg = document.getElementById('b-bm-toggle');
     if (S.bmPage) {
       go.hidden = false;
-      lbl.textContent = 'Page ' + S.bmPage;
-      if (tg) tg.textContent = 'Remove \u00b7 page ' + S.bmPage;
+      lbl.textContent = 'الصفحة ' + R.arNum(S.bmPage);
+      if (tg) tg.textContent = 'حذف · الصفحة ' + R.arNum(S.bmPage);
     } else {
       go.hidden = true;
-      if (tg) tg.textContent = 'Set at current page';
+      if (tg) tg.textContent = 'وضع علامة هنا';
     }
   }
 
@@ -263,7 +264,7 @@
   document.getElementById('btn-bm-go').addEventListener('click', function () {
     if (S.bmPage) {
       R.gotoPage(S.bmPage);
-      toast('Resumed at your bookmark \u2014 page ' + S.bmPage);
+      toast('عدتَ إلى علامتك — الصفحة ' + R.arNum(S.bmPage));
     }
   });
 
@@ -282,11 +283,11 @@
     for (var k in S) if (k !== 'lastPage' && k !== 'bmPage') slim[k] = S[k];
     var url = location.href.split('#')[0] + '#s=' +
       btoa(unescape(encodeURIComponent(JSON.stringify(slim))));
-    function done() { toast('Link copied — opens with this exact look'); }
+    function done() { toast('تم نسخ الرابط — يفتح بنفس مظهرك'); }
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url).then(done, function () { prompt('Copy this link:', url); });
+      navigator.clipboard.writeText(url).then(done, function () { prompt('انسخ هذا الرابط:', url); });
     } else {
-      prompt('Copy this link:', url);
+      prompt('انسخ هذا الرابط:', url);
     }
   }
 
@@ -323,13 +324,15 @@
   }
 
   function search(qraw) {
-    var q = qraw.trim();
+    var q = String(qraw).trim()
+      .replace(/[٠-٩]/g, function (d) { return String('٠١٢٣٤٥٦٧٨٩'.indexOf(d)); })
+      .replace(/[۰-۹]/g, function (d) { return String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)); });
     if (!q) { hideResults(); return; }
     if (!index) buildIndex();
     var out = [];
     var m;
 
-    if ((m = q.match(/^(?:p|page|pg)\s*[#: ]?\s*(\d{1,3})$/i))) {
+    if ((m = q.match(/^(?:p|page|pg|صفحة|صفحه)\s*[#: ]?\s*(\d{1,3})$/i))) {
       var pg = Math.min(604, Math.max(1, +m[1]));
       out.push({ kind: 'page', page: pg });
     } else if ((m = q.match(/^(\d{1,3})\s*[:.\-/]\s*(\d{1,3})$/))) {
@@ -340,6 +343,8 @@
         for (var li = 0; li < lst.length; li++) if (lst[li].s === rs && lst[li].a === ra) { rt = lst[li].t; break; }
         out.push({ kind: 'ayah', s: rs, a: ra, page: rp, t: rt });
       }
+    } else if ((m = q.match(/^(?:سورة|سوره)\s*(\d{1,3})$/))) {
+      out.push({ kind: 'surah', s: Math.min(114, Math.max(1, +m[1])) });
     } else if (/^\d{1,3}$/.test(q)) {
       var n = +q;
       if (n >= 1 && n <= 114) out.push({ kind: 'surah', s: n });
@@ -368,7 +373,7 @@
     rows = [];
     activeIdx = -1;
     if (!list.length) {
-      resultsEl.innerHTML = '<div class="sr-note">No results. Try a surah name, "page 60", "2:255", or words from a verse.</div>';
+      resultsEl.innerHTML = '<div class="sr-note">لا نتائج. جرّب اسم سورة، أو «صفحة 60»، أو «2:255»، أو كلمات من الآية.</div>';
       resultsEl.hidden = false;
       return;
     }
@@ -376,18 +381,18 @@
       if (r.kind === 'page') {
         var su = pageSurah(r.page);
         return '<div class="sr-row" data-kind="page" data-page="' + r.page + '">' +
-          '<span class="sr-icon">📄</span><span class="sr-main"><b>Page ' + r.page + '</b>' +
-          '<span class="sr-sub">' + (su ? su.en + ' · starts at ' + su.name : '') + '</span></span></div>';
+          '<span class="sr-icon">📄</span><span class="sr-main"><b>صفحة ' + R.arNum(r.page) + '</b>' +
+          '<span class="sr-sub">' + (su ? 'تبدأ بـ ' + su.name : '') + '</span></span></div>';
       }
       if (r.kind === 'surah') {
         var s2 = suOf(r.s);
         return '<div class="sr-row" data-kind="surah" data-s="' + r.s + '">' +
-          '<span class="sr-icon">📖</span><span class="sr-main"><b>' + s2.en + ' — ' + s2.name + '</b>' +
-          '<span class="sr-sub">Surah ' + r.s + ' · page ' + s2.page + ' · ' + s2.count + ' ayahs</span></span></div>';
+          '<span class="sr-icon">📖</span><span class="sr-main"><b>' + s2.name + '</b>' +
+          '<span class="sr-sub">السورة ' + R.arNum(r.s) + ' · تبدأ عند الصفحة ' + R.arNum(s2.page) + ' · ' + R.arNum(s2.count) + ' آيات</span></span></div>';
       }
       var s3 = suOf(r.s);
       return '<div class="sr-row" data-kind="ayah" data-s="' + r.s + '" data-a="' + r.a + '">' +
-        '<span class="sr-icon">﴿﴾</span><span class="sr-main"><b>' + s3.en + ' ' + r.s + ':' + r.a + '</b>' +
+        '<span class="sr-icon">﴿﴾</span><span class="sr-main"><b>' + s3.name + ' · ' + r.s + ':' + r.a + '</b>' +
         '<span class="sr-sub" dir="rtl">' + r.t.slice(0, 90) + '…</span></span></div>';
     }).join('');
     resultsEl.innerHTML = html;
@@ -461,8 +466,8 @@
     else if (e.key === 'Escape') { closePanel(); }
     else if (!typing && !panel.classList.contains('open')) {
       if (e.key === 'b' || e.key === 'B') { e.preventDefault(); setBookmark(); }
-      else if (e.key === 'ArrowRight') R.gotoPage(R.current + 1);
-      else if (e.key === 'ArrowLeft') R.gotoPage(R.current - 1);
+      else if (e.key === 'ArrowLeft') R.gotoPage(R.current + 1);
+      else if (e.key === 'ArrowRight') R.gotoPage(R.current - 1);
     }
   });
 

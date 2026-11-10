@@ -56,14 +56,14 @@
   })();
 
   if (!loaded) {
-    pagesEl.innerHTML = '<p class="error">Quran data failed to load. Please make sure the file "data/quran-data.js" is present next to index.html.</p>';
+    pagesEl.innerHTML = '<p class="error">تعذّر تحميل بيانات المصحف. تأكّد من وجود الملف "data/quran-data.js" بجانب index.html</p>';
     return;
   }
 
   /* ---------- page rendering ---------- */
 
   function ayahHTML(x) {
-    return '<span class="ayah" id="v' + x.s + '-' + x.a + '" title="' + x.s + ':' + x.a + '">' +
+    return '<span class="ayah" id="v' + x.s + '-' + x.a + '" title="' + arNum(x.s) + ':' + arNum(x.a) + '">' +
       '<span class="a-text">' + x.t + '</span>' +
       '<span class="vm">' + arNum(x.a) + '</span></span>';
   }
@@ -168,7 +168,7 @@
     var inp = document.getElementById('page-input');
     if (pill) {
       var su = surahOfPage(n);
-      pill.textContent = 'Page ' + n + ' / 604' + (su ? ' · ' + su.en : '');
+      pill.textContent = 'صفحة ' + arNum(n) + ' من ' + arNum(604) + (su ? ' · ' + su.name : '');
     }
     if (inp && document.activeElement !== inp) inp.value = n;
     if (onPageChange) onPageChange(n);
@@ -231,12 +231,12 @@
 
   function printAll() {
     if (!window.confirm(
-      'Print the ENTIRE mushaf (604 pages)?\n\n' +
-      'Your font, size, thickness, stroke and colors will be used.\n\n' +
-      'Tips for the print dialog:\n' +
-      '- enable "Background graphics" so page color + markers print\n' +
-      '- depending on your text size, expect several hundred sheets\n' +
-      '- you can also choose "Save as PDF" instead of a printer'
+      'طباعة المصحف كاملاً (٦٠٤ صفحات)؟\n\n' +
+      'سيُستخدم خطّك وحجمك وسماكتك وحدودك وألوانك.\n\n' +
+      'نصائح لنافذة الطباعة:\n' +
+      '- فعّل خيار "Background graphics" حتى تُطبع ألوان الصفحة والعلامات\n' +
+      '- حسب حجم نصّك قد تحتاج مئات الأوراق\n' +
+      '- يمكنك اختيار "Save as PDF" بدل الطابعة للحصول على ملف PDF'
     )) return;
 
     var prevCurrent = current;
