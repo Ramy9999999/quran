@@ -227,6 +227,47 @@
   var pageInput = document.getElementById('page-input');
   pageInput.addEventListener('change', function () { gotoPage(+this.value); });
 
+  /* ---------- whole-Quran printing ---------- */
+
+  function printAll() {
+    if (!window.confirm(
+      'Print the ENTIRE mushaf (604 pages)?\n\n' +
+      'Your font, size, thickness, stroke and colors will be used.\n\n' +
+      'Tips for the print dialog:\n' +
+      '- enable "Background graphics" so page color + markers print\n' +
+      '- depending on your text size, expect several hundred sheets\n' +
+      '- you can also choose "Save as PDF" instead of a printer'
+    )) return;
+
+    var prevCurrent = current;
+    var prevCont = continuous;
+    continuous = false; /* stop auto-append while the full book is laid out */
+
+    var html = '';
+    for (var p = 1; p <= 604; p++) html += pageSection(p);
+    pagesEl.innerHTML = html;
+    firstLoaded = 1;
+    lastLoaded = 604;
+    observePages();
+
+    var doc = document.documentElement;
+    var ob = doc.style.scrollBehavior;
+    doc.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
+    doc.style.scrollBehavior = ob;
+
+    function restore() {
+      window.removeEventListener('afterprint', restore);
+      continuous = prevCont;
+      resetTo(prevCurrent);
+    }
+    window.addEventListener('afterprint', restore);
+
+    var go = function () { setTimeout(function () { window.print(); }, 120); };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(go);
+    else go();
+  }
+
   /* ---------- public API ---------- */
 
   window.Reader = {
@@ -236,6 +277,7 @@
     arNum: arNum,
     gotoPage: gotoPage,
     gotoAyah: gotoAyah,
+    printAll: printAll,
     get current() { return current; },
     setContinuous: function (v) {
       continuous = !!v;

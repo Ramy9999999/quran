@@ -346,16 +346,26 @@ body.cue-on .page-cue { display: block; }
 /* ---------------- Print ---------------- */
 
 @media print {
+  @page { margin: 11mm; }
   #topbar, #page-nav, #settings-panel, #scrim, #toast { display: none !important; }
   #viewport { padding: 0; }
   body { background: #fff; }
   .page {
     box-shadow: none;
     outline: none;
-    border: 1px solid #999;
     width: auto;
-    min-height: auto;
-    margin: 0 0 4mm;
-    break-after: page;
+    max-width: none;
+    margin: 0;
+    border-radius: 0;
+    padding: 4mm 5mm;
+    background: var(--c-paper);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
+  .page + .page { break-before: page; }
+  .quran-text, .vm, .sh-name, .page-number {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .ayah:hover { background: none; }
 }

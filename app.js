@@ -142,12 +142,14 @@
     h += '</div>';
 
     h += '<div class="sp-actions">' +
-      '<button class="btn" id="b-print" type="button">🖨 Print pages</button>' +
+      '<button class="btn" id="b-print-all" type="button">🖨 Print WHOLE Quran</button>' +
+      '<button class="btn" id="b-print" type="button">🖨 Print loaded pages</button>' +
       '<button class="btn" id="b-share" type="button">🔗 Copy my look link</button>' +
       '<button class="btn" id="b-reset" type="button">↺ Reset</button></div>' +
       '<p class="sp-hint">Everything is saved automatically in this browser. The stroke draws an outline ' +
       'around each letter — combine it with weight for bold outlines. Use the search bar to jump to any ' +
-      'surah, page, or verse.</p>';
+      'surah, page, or verse. "Print WHOLE Quran" prints all 604 pages with these exact settings — ' +
+      'enable "Background graphics" in the print dialog so colors print.</p>';
 
     panel.innerHTML = h;
     wirePanel();
@@ -192,6 +194,10 @@
       refreshPanel(); apply(); save();
     });
     document.getElementById('b-print').addEventListener('click', function () { window.print(); });
+    document.getElementById('b-print-all').addEventListener('click', function () {
+      closePanel();
+      setTimeout(function () { R.printAll(); }, 250);
+    });
     document.getElementById('b-reset').addEventListener('click', function () {
       S = Object.assign({}, DEFAULTS, { lastPage: S.lastPage });
       refreshPanel(); apply(); save(); toast('Customization reset');

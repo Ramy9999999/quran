@@ -28,6 +28,11 @@ FEATURES
   and color, text / page / background / accent colors (color pickers),
   line height, alignment, verse-marker style, page frame, page width.
 • Search: surah name or number, "page 60", "2:255", or any words.
+• Print: "Print loaded pages" prints what's on screen; "Print WHOLE
+  Quran" lays out all 604 pages with your exact settings and opens
+  the print dialog (choose "Save as PDF" to get a PDF file). In the
+  print dialog, enable "Background graphics" so the page color and
+  verse markers print correctly.
 • "Copy my look link" in the panel copies a URL that opens the reader
   with your exact customization (when hosted online).
 • Settings are remembered per browser automatically.
