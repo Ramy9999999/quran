@@ -12,7 +12,8 @@
     text: '#17161a', paper: '#faf6ec', back: '#e9e2d2', accent: '#9a7b2d',
     align: 'center', marker: 'circle',
     frame: true, frameW: 2, pageW: 900,
-    continuous: true, cue: false, lastPage: 1
+    continuous: true, cue: false, lastPage: 1,
+    bmPage: null
   };
   var S = Object.assign({}, DEFAULTS);
   var LS_KEY = 'quran-reader-settings';
@@ -139,6 +140,7 @@
     h += '<div class="ctl"><label for="k-frame">Page frame</label><input type="checkbox" id="k-frame"></div>';
     h += '<div class="ctl"><label for="k-cont">Continuous scroll</label><input type="checkbox" id="k-cont"></div>';
     h += '<div class="ctl"><label for="k-cue">Surah label at page start</label><input type="checkbox" id="k-cue"></div>';
+    h += '<div class="ctl"><label for="b-bm-toggle">Bookmark</label><button class="btn" id="b-bm-toggle" type="button"></button></div>';
     h += '</div>';
 
     h += '<div class="sp-actions">' +
@@ -189,6 +191,10 @@
     document.getElementById('k-frame').addEventListener('change', function () { S.frame = this.checked; apply(); save(); });
     document.getElementById('k-cont').addEventListener('change', function () { S.continuous = this.checked; apply(); save(); });
     document.getElementById('k-cue').addEventListener('change', function () { S.cue = this.checked; apply(); save(); });
+    document.getElementById('b-bm-toggle').addEventListener('click', function () {
+      if (S.bmPage) { S.bmPage = null; save(); refreshBmUI(); toast('Bookmark removed'); }
+      else setBookmark();
+    });
     document.getElementById('b-swap').addEventListener('click', function () {
       var t = S.text; S.text = S.paper; S.paper = t;
       refreshPanel(); apply(); save();
@@ -228,6 +234,39 @@
     document.getElementById('k-cue').checked = !!S.cue;
   }
 
+  /* ---------- bookmark ---------- */
+
+  function setBookmark() {
+    var old = S.bmPage;
+    var now = R.current;
+    if (old === now) { toast('Bookmark is already at page ' + now); return; }
+    S.bmPage = now;
+    save(); refreshBmUI();
+    toast(old ? 'Bookmark moved: page ' + old + ' \u2192 page ' + now : 'Bookmark saved at page ' + now);
+  }
+
+  function refreshBmUI() {
+    var go = document.getElementById('btn-bm-go');
+    var lbl = document.getElementById('bm-go-label');
+    var tg = document.getElementById('b-bm-toggle');
+    if (S.bmPage) {
+      go.hidden = false;
+      lbl.textContent = 'Page ' + S.bmPage;
+      if (tg) tg.textContent = 'Remove \u00b7 page ' + S.bmPage;
+    } else {
+      go.hidden = true;
+      if (tg) tg.textContent = 'Set at current page';
+    }
+  }
+
+  document.getElementById('btn-bm-set').addEventListener('click', setBookmark);
+  document.getElementById('btn-bm-go').addEventListener('click', function () {
+    if (S.bmPage) {
+      R.gotoPage(S.bmPage);
+      toast('Resumed at your bookmark \u2014 page ' + S.bmPage);
+    }
+  });
+
   /* ---------- panel open/close ---------- */
 
   var scrim = document.getElementById('scrim');
@@ -240,7 +279,7 @@
 
   function shareLook() {
     var slim = {};
-    for (var k in S) if (k !== 'lastPage') slim[k] = S[k];
+    for (var k in S) if (k !== 'lastPage' && k !== 'bmPage') slim[k] = S[k];
     var url = location.href.split('#')[0] + '#s=' +
       btoa(unescape(encodeURIComponent(JSON.stringify(slim))));
     function done() { toast('Link copied — opens with this exact look'); }
@@ -421,7 +460,8 @@
     if (e.key === '/' && !typing) { e.preventDefault(); searchInput.focus(); searchInput.select(); }
     else if (e.key === 'Escape') { closePanel(); }
     else if (!typing && !panel.classList.contains('open')) {
-      if (e.key === 'ArrowRight') R.gotoPage(R.current + 1);
+      if (e.key === 'b' || e.key === 'B') { e.preventDefault(); setBookmark(); }
+      else if (e.key === 'ArrowRight') R.gotoPage(R.current + 1);
       else if (e.key === 'ArrowLeft') R.gotoPage(R.current - 1);
     }
   });
@@ -431,6 +471,7 @@
   load();
   apply();
   buildPanel();
+  refreshBmUI();
   R.onPageChange(function (p) { S.lastPage = p; save(); });
   R.gotoPage(Math.min(604, Math.max(1, S.lastPage || 1)));
 })();

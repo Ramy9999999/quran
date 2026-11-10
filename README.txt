@@ -27,6 +27,9 @@ FEATURES
 • Customize: font, text size, thickness (weight), stroke outline width
   and color, text / page / background / accent colors (color pickers),
   line height, alignment, verse-marker style, page frame, page width.
+• Bookmark: "🔖 Save spot" marks the page you reached; setting a new
+  one replaces the old. The "▶ Page N" button jumps back to it.
+  Press "b" as a shortcut.
 • Search: surah name or number, "page 60", "2:255", or any words.
 • Print: "Print loaded pages" prints what's on screen; "Print WHOLE
   Quran" lays out all 604 pages with your exact settings and opens
