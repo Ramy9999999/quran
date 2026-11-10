@@ -25,6 +25,10 @@
         var obj = JSON.parse(decodeURIComponent(escape(atob(h.slice(3)))));
         Object.assign(S, obj);
         save();
+        /* apply the shared look once, then drop the hash from the URL so
+           later refreshes load the user's own saved settings instead of
+           re-applying this old snapshot forever */
+        try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { }
         return;
       }
     } catch (e) { /* ignore bad hash */ }
