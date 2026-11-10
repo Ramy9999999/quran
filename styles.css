@@ -212,7 +212,8 @@ body.compact #page-pill { display: none; }
 body.compact #search { padding: 5px 12px; font-size: 13px; }
 body.compact #btn-bm-set { padding: 7px 9px; }
 body.compact #btn-bm-go { padding: 7px 9px; }
-body.compact #btn-bm-set .bl { display: none; }
+body.compact #btn-bm-set .bl, body.compact #btn-settings .bl { display: none; }
+#btn-search { display: none; }
 
 #page-nav { transition: padding .2s ease; }
 #btn-prev, #btn-next, #nav-info {
@@ -387,8 +388,30 @@ body.nav-open #nav-collapsed { display: none; }
   #topbar { flex-wrap: wrap; }
   #search-wrap { order: 3; flex-basis: 100%; max-width: none; }
   #viewport { padding-top: 118px; }
-  body.compact #viewport { padding-top: 130px; }
   .btn { padding: 7px 10px; font-size: 12.5px; }
+
+  /* compact: search row becomes a 🔍 icon; tap opens it as a dropdown */
+  body.compact #search-wrap { display: none; }
+  body.compact #btn-search {
+    display: inline-flex;
+    padding: 8px 11px;
+    font-size: 14px;
+  }
+  body.compact #viewport { padding-top: 100px; }
+  body.compact.search-open #search-wrap {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 10px; right: 10px;
+    background: var(--c-back);
+    padding: 6px 4px 10px;
+    border-bottom: 2px solid var(--c-accent);
+    z-index: 5;
+  }
+  body.compact.search-open #search {
+    font-size: 16px; /* prevents iOS zoom-on-focus */
+    padding: 10px 14px;
+  }
 }
 
 /* ---------------- Print ---------------- */

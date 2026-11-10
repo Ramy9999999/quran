@@ -421,6 +421,7 @@
     else R.gotoAyah(+row.getAttribute('data-s'), +row.getAttribute('data-a'));
     hideResults();
     searchInput.blur();
+    if (searchOpen) setSearchOpen(false);
   }
 
   function setActive(i) {
@@ -463,13 +464,32 @@
   document.addEventListener('keydown', function (e) {
     var typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName);
     if (e.key === '/' && !typing) { e.preventDefault(); searchInput.focus(); searchInput.select(); }
-    else if (e.key === 'Escape') { closePanel(); }
+    else if (e.key === 'Escape') { closePanel(); if (searchOpen) setSearchOpen(false); }
     else if (!typing && !panel.classList.contains('open')) {
       if (e.key === 'b' || e.key === 'B') { e.preventDefault(); setBookmark(); }
       else if (e.key === 'ArrowLeft') R.gotoPage(R.current + 1);
       else if (e.key === 'ArrowRight') R.gotoPage(R.current - 1);
     }
   });
+
+  /* ---------- mobile compact search ---------- */
+
+  var btnSearch = document.getElementById('btn-search');
+  var searchOpen = false;
+  function setSearchOpen(v) {
+    searchOpen = v;
+    document.body.classList.toggle('search-open', v);
+    if (btnSearch) btnSearch.textContent = v ? '✕' : '🔍';
+    if (v) {
+      setTimeout(function () { searchInput.focus(); }, 60);
+    } else {
+      hideResults();
+      searchInput.blur();
+    }
+  }
+  if (btnSearch) {
+    btnSearch.addEventListener('click', function () { setSearchOpen(!searchOpen); });
+  }
 
   /* ---------- compact UI while scrolling ---------- */
 
@@ -480,6 +500,7 @@
     if (want !== compacted) {
       compacted = want;
       document.body.classList.toggle('compact', want);
+      if (!want && searchOpen) setSearchOpen(false);
     }
   }, { passive: true });
 
