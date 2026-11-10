@@ -201,6 +201,52 @@ body.cue-on .page-cue { display: block; }
 
 .error { text-align: center; font-size: 16px; padding: 60px 20px; }
 
+/* ---------------- Compact mode while scrolling ---------------- */
+
+#topbar { transition: padding .25s ease; }
+#viewport { transition: padding-top .25s ease; }
+body.compact #topbar { padding: 4px 16px; }
+body.compact #viewport { padding-top: 100px; } /* +12px to offset the shorter header */
+body.compact .brand-title { display: none; }
+body.compact #page-pill { display: none; }
+body.compact #search { padding: 5px 12px; font-size: 13px; }
+body.compact #btn-bm-set { padding: 7px 9px; }
+body.compact #btn-bm-go { padding: 7px 9px; }
+body.compact #btn-bm-set .bl { display: none; }
+
+#page-nav { transition: padding .2s ease; }
+#btn-prev, #btn-next, #nav-info {
+  transition: max-width .25s ease, padding .25s ease, opacity .25s ease, margin .25s ease, border-width .25s ease;
+  white-space: nowrap;
+}
+#btn-prev, #btn-next { max-width: 130px; }
+#nav-info { max-width: 220px; overflow: hidden; }
+#nav-collapsed {
+  display: none;
+  font-size: 13.5px;
+  opacity: .9;
+  cursor: pointer;
+  padding: 2px 8px;
+  user-select: none;
+}
+body.compact #page-nav { padding: 5px 14px; }
+body.compact #btn-prev, body.compact #btn-next {
+  max-width: 0; padding: 8px 0; margin: 0; border-width: 0; opacity: 0; pointer-events: none;
+}
+body.compact #nav-info {
+  max-width: 0; padding: 0; margin: 0; border-width: 0; opacity: 0; pointer-events: none;
+}
+body.compact #nav-collapsed { display: block; }
+
+/* footer re-expands on hover, keyboard focus, or tap (nav-open) */
+body.compact #page-nav:hover #btn-prev, body.compact #page-nav:hover #btn-next, body.compact #page-nav:hover #nav-info,
+body.compact #page-nav:focus-within #btn-prev, body.compact #page-nav:focus-within #btn-next, body.compact #page-nav:focus-within #nav-info,
+body.nav-open #btn-prev, body.nav-open #btn-next, body.nav-open #nav-info {
+  max-width: 220px; padding: 8px 14px; margin: 0; border-width: 1.5px; opacity: 1; pointer-events: auto;
+}
+body.compact #page-nav:hover #nav-collapsed, body.compact #page-nav:focus-within #nav-collapsed,
+body.nav-open #nav-collapsed { display: none; }
+
 /* ---------------- Bottom page nav ---------------- */
 
 #page-nav {
@@ -341,6 +387,7 @@ body.cue-on .page-cue { display: block; }
   #topbar { flex-wrap: wrap; }
   #search-wrap { order: 3; flex-basis: 100%; max-width: none; }
   #viewport { padding-top: 118px; }
+  body.compact #viewport { padding-top: 130px; }
   .btn { padding: 7px 10px; font-size: 12.5px; }
 }
 

@@ -171,6 +171,8 @@
       pill.textContent = 'صفحة ' + arNum(n) + ' من ' + arNum(604) + (su ? ' · ' + su.name : '');
     }
     if (inp && document.activeElement !== inp) inp.value = n;
+    var cl = document.getElementById('nav-collapsed');
+    if (cl) cl.textContent = arNum(n) + ' / ' + arNum(604);
     if (onPageChange) onPageChange(n);
   }
 

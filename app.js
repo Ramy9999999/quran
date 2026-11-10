@@ -471,6 +471,28 @@
     }
   });
 
+  /* ---------- compact UI while scrolling ---------- */
+
+  var compacted = false;
+  window.addEventListener('scroll', function () {
+    var y = window.scrollY || document.documentElement.scrollTop || 0;
+    var want = y > 150;
+    if (want !== compacted) {
+      compacted = want;
+      document.body.classList.toggle('compact', want);
+    }
+  }, { passive: true });
+
+  var navCollapsedEl = document.getElementById('nav-collapsed');
+  var navOpenT = null;
+  if (navCollapsedEl) {
+    navCollapsedEl.addEventListener('click', function () {
+      document.body.classList.add('nav-open');
+      clearTimeout(navOpenT);
+      navOpenT = setTimeout(function () { document.body.classList.remove('nav-open'); }, 4000);
+    });
+  }
+
   /* ================= init ================= */
 
   load();
